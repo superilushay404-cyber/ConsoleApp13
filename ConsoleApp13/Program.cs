@@ -37,11 +37,30 @@
                         Console.WriteLine("Empty input");
                     }
                 }
+                else if (userInput == 2)
+                {
+                    Console.WriteLine("Please input name of playlist");
+
+                    string nameOfPlaylist = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(nameOfPlaylist))
+                    {
+                        Console.WriteLine("Please input duration of music");
+
+                        Playlist playlist = new Playlist(nameOfPlaylist);
+                        playlists.Add(playlist);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Empty input");
+                    }
+                }
             }
         }
         static void PrintInfo()
         {
             Console.WriteLine("Enter 1 to add new music");
+            Console.WriteLine("Enter 2 to add new playlist");
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleApp13
+﻿namespace ConsoleApp13
 {
     internal class Playlist
     {
+        public Playlist (string name)
+        {
+            Name = name;
+        }
+        List<Music> Music { get; set; } = new List<Music> ();
+
+        string Name { get; set; }
     }
 }

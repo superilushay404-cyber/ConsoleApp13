@@ -6,8 +6,8 @@
         {
             Name = name;
         }
-        List<Music> Music { get; set; } = new List<Music> ();
+        public List<Music> Musics { get; set; } = new List<Music> ();
 
-        string Name { get; set; }
+        public string Name { get; set; }
     }
 }

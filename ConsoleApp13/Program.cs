@@ -263,7 +263,7 @@ namespace ConsoleApp13
                         }
                         else
                         {
-                            Console.WriteLine($"\"{findedPlaylist}\" is not exists");
+                            Console.WriteLine($"\"{nameOfPlaylist}\" is not exists");
                         }
                     }
                     else
@@ -311,6 +311,58 @@ namespace ConsoleApp13
                         Console.WriteLine("Playlist is empty");
                     }
                 }
+                else if (userInput == 8)
+                {
+                    if (playlists.Count > 0)
+                    {
+                        Console.WriteLine("Enter name of playlist");
+                        string nameOfPlaylist = Console.ReadLine();
+
+                        Playlist findedPlaylist = null;
+
+                        foreach (Playlist playlist in playlists)
+                        {
+                            if (playlist.Name == nameOfPlaylist)
+                            {
+                                findedPlaylist = playlist;
+                            }
+                        }
+                        if (findedPlaylist != null)
+                        {
+                            Music longestMusicInPlaylist = null;
+                            int longestTime = 0;
+
+                            if (findedPlaylist.Musics.Count > 0)
+                            {
+                                for (int i = 0; i < findedPlaylist.Musics.Count; i++)
+                                {
+                                    if (findedPlaylist.Musics[i].Duration > longestTime)
+                                    {
+                                        longestMusicInPlaylist = findedPlaylist.Musics[i];
+                                        longestTime = findedPlaylist.Musics[i].Duration;
+                                    }
+                                }
+                                if (longestMusicInPlaylist != null)
+                                {
+                                    Console.WriteLine($"The name of longest music is {longestMusicInPlaylist.Name}");
+                                    Console.WriteLine($"The duration of longest music is {longestMusicInPlaylist.Duration}");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("There is no music's in this playlist yet");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Playlist \"{nameOfPlaylist}\" is not exists");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no playlsits yet");
+                    }
+                }
             }
         }
         static void PrintInfo()
@@ -319,9 +371,10 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 2 to add new playlist");
             Console.WriteLine("Enter 3 to add music to playlist");
             Console.WriteLine("Enter 4 to find music by name");
-            Console.WriteLine("Enter 5 to to play next music");
-            Console.WriteLine("Enter 6 to to play previous music");
+            Console.WriteLine("Enter 5 to play next music");
+            Console.WriteLine("Enter 6 to play previous music");
             Console.WriteLine("Enter 7 to see total duration of playlist");
+            Console.WriteLine("Enter 8 to see longest music");
         }
     }
 }

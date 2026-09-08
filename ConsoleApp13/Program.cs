@@ -142,6 +142,7 @@ namespace ConsoleApp13
                         {
                             Console.WriteLine($"Name of music: {findedMusic.Name}");
                             Console.WriteLine($"Duration of music: {findedMusic.Duration}");
+                            Console.WriteLine($"Is music playing: {findedMusic.IsPlaying}");
                         }
                         else
                         {
@@ -417,6 +418,55 @@ namespace ConsoleApp13
                         Console.WriteLine("There is no music's yet");
                     }
                 }
+                else if (userInput == 11)
+                {
+                    if (playlists.Count > 0)
+                    {
+                        Console.WriteLine("Enter name of playlist");
+                        string nameOfPlaylist = Console.ReadLine();
+
+                        Playlist findedPlaylist = null;
+
+                        foreach (Playlist playlist in playlists)
+                        {
+                            if (playlist.Name == nameOfPlaylist)
+                            {
+                                findedPlaylist = playlist;
+                            }
+                        }
+                        if (findedPlaylist != null)
+                        {
+                            Console.WriteLine("Enter name of music");
+                            string nameOfMusic = Console.ReadLine();
+
+                            Music findedMusic = null;
+
+                            foreach (Music music in findedPlaylist.Musics)
+                            {
+                                if (music.Name == nameOfMusic)
+                                {
+                                    findedMusic = music;
+                                }
+                            }
+                            if (findedMusic != null)
+                            {
+                                findedPlaylist.Musics.Remove(findedMusic);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Couldnt find music \"{nameOfPlaylist}\"");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Couldnt find playlist \"{nameOfPlaylist}\"");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no playlists yet");
+                    }   
+                }
             }
         }
         static void PrintInfo()
@@ -431,6 +481,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 8 to see longest music");
             Console.WriteLine("Enter 9 to mark music as playing");
             Console.WriteLine("Enter 10 to delete music");
+            Console.WriteLine("Enter 11 to delete music from list");
         }
     }
 }

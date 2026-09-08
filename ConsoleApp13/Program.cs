@@ -152,6 +152,66 @@ namespace ConsoleApp13
                         Console.WriteLine("Empty input");
                     }
                 }
+                else if (userInput == 5)
+                {
+                    if (playlists.Count > 0)
+                    {
+                        Console.WriteLine("Please input name of playlist");
+                        string nameOfPlaylist = Console.ReadLine();
+
+                        Playlist findedPlaylist = null;
+                        Music findedMusic = null;
+
+                        foreach (Playlist playlist in playlists)
+                        {
+                            if (playlist.Name == nameOfPlaylist)
+                            {
+                                findedPlaylist = playlist;
+                            }
+                        }
+                        if (findedPlaylist != null)
+                        {
+                            foreach (Music music in findedPlaylist.Musics)
+                            {
+                                if (music.IsPlaying == true)
+                                {
+                                    findedMusic = music;
+                                }
+                            }
+                            if (findedMusic != null)
+                            {
+                                int indexOfPlayingMusic = findedPlaylist.Musics.IndexOf(findedMusic);
+                                int indexOfNextMusic = indexOfPlayingMusic + 1;
+
+                                int indexOfLastItemInPlaylist = findedPlaylist.Musics.Count - 1;
+
+                                if (indexOfNextMusic <= indexOfLastItemInPlaylist)
+                                {
+                                    findedPlaylist.Musics[indexOfPlayingMusic].IsPlaying = false;
+                                    findedPlaylist.Musics[indexOfNextMusic].IsPlaying = true;
+
+                                    Console.WriteLine("Success");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"There is no more music's in this playlists. \"{findedMusic.Name}\" is still playing");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("There is no playing music's in playlist");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\"{nameOfPlaylist}\" is not exists");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no playlists yet");
+                    }
+                }
             }
         }
         static void PrintInfo()
@@ -160,6 +220,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 2 to add new playlist");
             Console.WriteLine("Enter 3 to add music to playlist");
             Console.WriteLine("Enter 4 to find music by name");
+            Console.WriteLine("Enter 5 to to play next music");
         }
     }
 }

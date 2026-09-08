@@ -121,6 +121,37 @@ namespace ConsoleApp13
                         Console.WriteLine("There is no playlists yet");
                     }
                 }
+                else if (userInput == 4)
+                {
+                    Console.WriteLine("Enter name of music");
+                    string nameOfMusic = Console.ReadLine();
+
+                    Music findedMusic = null;
+
+                    if (!string.IsNullOrEmpty (nameOfMusic))
+                    {
+                        foreach (Music music in musics)
+                        {
+                            if (music.Name == nameOfMusic)
+                            {
+                                findedMusic = music;
+                            }
+                        }
+                        if (findedMusic != null)
+                        {
+                            Console.WriteLine($"Name of music: {findedMusic.Name}");
+                            Console.WriteLine($"Duration of music: {findedMusic.Duration}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("This music is no exists");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Empty input");
+                    }
+                }
             }
         }
         static void PrintInfo()
@@ -128,6 +159,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 1 to add new music");
             Console.WriteLine("Enter 2 to add new playlist");
             Console.WriteLine("Enter 3 to add music to playlist");
+            Console.WriteLine("Enter 4 to find music by name");
         }
     }
 }

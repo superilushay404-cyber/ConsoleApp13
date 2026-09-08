@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using System.ComponentModel.Design;
+using System.Reflection.Metadata;
 
 namespace ConsoleApp13
 {
@@ -270,6 +271,46 @@ namespace ConsoleApp13
                         Console.WriteLine("There is no playlists yet");
                     }
                 }
+                else if (userInput == 7)
+                {
+                    if (playlists.Count > 0)
+                    {
+                        Console.WriteLine("Enter name of playlist");
+                        string nameOfPlaylist = Console.ReadLine();
+
+                        Playlist findedPlaylist = null;
+
+                        foreach (Playlist playlist in playlists)
+                        {
+                            if (playlist.Name == nameOfPlaylist)
+                            {
+                                findedPlaylist = playlist;
+                            }
+                        }
+                        if (findedPlaylist != null && findedPlaylist.Musics.Count > 0)
+                        {
+                            int totalDuration = 0;
+
+                            for (int i = 0; i < findedPlaylist.Musics.Count; i++)
+                            {
+                                totalDuration += findedPlaylist.Musics[i].Duration;
+                            }
+                            Console.WriteLine($"Total duration of playlist \"{findedPlaylist.Name}\" is {totalDuration}");
+                        }
+                        else if (findedPlaylist == null)
+                        {
+                            Console.WriteLine($"Playlist \"{nameOfPlaylist}\" is not exists");
+                        }
+                        else if (findedPlaylist.Musics.Count == 0)
+                        {
+                            Console.WriteLine("This playlist is empty right now");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Playlist is empty");
+                    }
+                }
             }
         }
         static void PrintInfo()
@@ -280,6 +321,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 4 to find music by name");
             Console.WriteLine("Enter 5 to to play next music");
             Console.WriteLine("Enter 6 to to play previous music");
+            Console.WriteLine("Enter 7 to see total duration of playlist");
         }
     }
 }

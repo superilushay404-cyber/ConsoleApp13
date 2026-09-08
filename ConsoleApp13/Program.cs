@@ -363,6 +363,32 @@ namespace ConsoleApp13
                         Console.WriteLine("There is no playlsits yet");
                     }
                 }
+                else if (userInput == 9)
+                {
+                    if (musics.Count > 0)
+                    {
+                        Console.WriteLine("Enter name of music");
+                        string nameOfMusic = Console.ReadLine();
+
+                        Music findedMusic = null;
+
+                        foreach (Music music in musics)
+                        {
+                            if (nameOfMusic == music.Name)
+                            {
+                                findedMusic = music;
+                            }
+                        }
+                        if (findedMusic != null)
+                        {
+                            findedMusic.IsPlaying = true;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There is no music's yet");
+                    }
+                }
             }
         }
         static void PrintInfo()
@@ -375,6 +401,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 6 to play previous music");
             Console.WriteLine("Enter 7 to see total duration of playlist");
             Console.WriteLine("Enter 8 to see longest music");
+            Console.WriteLine("Enter 9 to mark music as playing");
         }
     }
 }

@@ -14,5 +14,7 @@
         public bool IsPlaying { get; set; } = false;
 
         public int AmountOfDublicates { get; set; } = 0;
+
+        public Playlist Playlist { get; set; } = null;
     }
 }

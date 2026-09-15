@@ -92,14 +92,19 @@ namespace ConsoleApp13
                                             findedMusic = music;
                                         }
                                     }
-                                    if (findedMusic != null)
+                                    if (findedMusic != null && findedMusic.Playlist == null)
                                     {
                                         findedPlaylist.Musics.Add(findedMusic);
+                                        findedMusic.Playlist = findedPlaylist;
                                         Console.WriteLine("Success");
                                     }
-                                    else
+                                    else if (findedMusic == null)
                                     {
                                         Console.WriteLine($"Music with name \"{nameOfMusic}\" is not exist yet");
+                                    }
+                                    else if (findedMusic != null && findedMusic.Playlist != null)
+                                    {
+                                        Console.WriteLine($"This music is already added to \"{findedMusic.Playlist.Name}\"");
                                     }
                                 }
                             }
@@ -143,6 +148,11 @@ namespace ConsoleApp13
                             Console.WriteLine($"Name of music: {findedMusic.Name}");
                             Console.WriteLine($"Duration of music: {findedMusic.Duration}");
                             Console.WriteLine($"Is music playing: {findedMusic.IsPlaying}");
+
+                            if (findedMusic.Playlist != null)
+                            {
+                                Console.WriteLine($"The playlist of music is \"{findedMusic.Playlist.Name}\"");
+                            }
                         }
                         else
                         {
@@ -455,6 +465,10 @@ namespace ConsoleApp13
                         }
                         if (findedMusic != null)
                         {
+                            if (findedMusic.Playlist != null)
+                            {
+                                findedMusic.Playlist.Musics.Remove(findedMusic);
+                            }
                             musics.Remove(findedMusic);
 
                             Console.WriteLine("Success");
@@ -498,6 +512,7 @@ namespace ConsoleApp13
                             if (findedMusic != null)
                             {
                                 findedPlaylist.Musics.Remove(findedMusic);
+                                findedMusic.Playlist = null;
                                 findedPlaylist.Musics[0].IsPlaying = true;
 
                                 Console.WriteLine("Success");
@@ -569,7 +584,7 @@ namespace ConsoleApp13
         {
             Console.WriteLine("Enter 1 to add new music");
             Console.WriteLine("Enter 2 to add new playlist");
-            Console.WriteLine("Enter 3 to add music to playlist");
+            Console.WriteLine("Enter 3 to add/move music to new playlist");
             Console.WriteLine("Enter 4 to find music by name");
             Console.WriteLine("Enter 5 to play next music");
             Console.WriteLine("Enter 6 to play previous music");

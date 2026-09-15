@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.Design;
-using System.Reflection.Metadata;
+using System.Linq;
 
 namespace ConsoleApp13
 {
@@ -383,6 +383,7 @@ namespace ConsoleApp13
                         if (findedMusic != null)
                         {
                             findedMusic.IsPlaying = true;
+                            Console.WriteLine("Success");
                         }
                     }
                     else
@@ -451,10 +452,13 @@ namespace ConsoleApp13
                             if (findedMusic != null)
                             {
                                 findedPlaylist.Musics.Remove(findedMusic);
+                                findedPlaylist.Musics[0].IsPlaying = true;
+
+                                Console.WriteLine("Success");
                             }
                             else
                             {
-                                Console.WriteLine($"Couldnt find music \"{nameOfPlaylist}\"");
+                                Console.WriteLine($"Couldnt find music \"{nameOfMusic}\"");
                             }
                         }
                         else
@@ -466,6 +470,52 @@ namespace ConsoleApp13
                     {
                         Console.WriteLine("There is no playlists yet");
                     }   
+                }
+                else if (userInput == 12)
+                {
+                    if (musics.Count > 1)
+                    {
+                        bool isThereNoDublicates = true;
+                        List<string> usedNames = new List<string>();
+
+                        foreach (Music firstMusic in musics)
+                        {
+                            if (!usedNames.Contains(firstMusic.Name))
+                            {
+                                int dublicatesCount = 0;
+
+                                foreach (var secondMusic in musics)
+                                {
+                                    if (secondMusic.Name == firstMusic.Name)
+                                    {
+                                        dublicatesCount++;
+                                    }
+                                }
+
+                                usedNames.Add(firstMusic.Name);
+
+                                if (dublicatesCount > 1)
+                                {
+                                    Console.WriteLine($"{firstMusic.Name} has {dublicatesCount} dublicates");
+
+                                    isThereNoDublicates = false;
+                                }
+                            }
+                        }
+
+                        if (isThereNoDublicates)
+                        {
+                            Console.WriteLine("There is no dublicates");
+                        }
+                    }
+                    else if (musics.Count == 0)
+                    {
+                        Console.WriteLine("There is no music's yet");
+                    }
+                    else if (musics.Count == 1)
+                    {
+                        Console.WriteLine($"There is only one music exists \"{musics[0].Name}\"");
+                    }
                 }
             }
         }
@@ -482,6 +532,7 @@ namespace ConsoleApp13
             Console.WriteLine("Enter 9 to mark music as playing");
             Console.WriteLine("Enter 10 to delete music");
             Console.WriteLine("Enter 11 to delete music from list");
+            Console.WriteLine("Enter 12 to see all dublicates if they exists");
         }
     }
 }

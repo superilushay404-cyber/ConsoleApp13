@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Linq;
-
-namespace ConsoleApp13
+﻿namespace ConsoleApp13
 {
     internal class Program
     {
@@ -11,9 +8,41 @@ namespace ConsoleApp13
             List<Playlist> playlists = new List<Playlist>();
 
             bool go = true;
+
             while (go)
             {
+                Console.WriteLine("Would you like to use pre-defined data (1 - yes, any other input - no)");
+                int.TryParse(Console.ReadLine(), out int userChoice);
+
+                if (userChoice == 1)
+                {
+                    string musicName1 = "aqua";
+                    string musicName2 = "wolf";
+                    string musicName3 = "CocaCola";
+
+                    string playlistName = "CoolPlaylist";
+
+                    Random random = new Random();
+
+                    int duration1 = random.Next(1, 100);
+                    int duration2 = random.Next(1, 100);
+                    int duration3 = random.Next(1, 100);
+
+                    Music music1 = new Music(musicName1, duration1);
+                    Music music2 = new Music(musicName2, duration2);
+                    Music music3 = new Music(musicName3, duration3);
+
+                    musics.Add(music3);
+                    musics.Add(music3);
+                    musics.Add(music3);
+
+                    Playlist playlist = new Playlist(playlistName);
+
+                    playlists.Add(playlist);
+                }
+
                 PrintInfo();
+
                 int.TryParse(Console.ReadLine(), out int userInput);
 
                 if (userInput == 1)
@@ -25,10 +54,12 @@ namespace ConsoleApp13
                     {
                         Console.WriteLine("Please input duration of music");
                         bool isParseSucces = int.TryParse(Console.ReadLine(), out int duration);
+
                         if (isParseSucces)
                         {
                             Music music = new Music(nameOfMusic, duration);
                             musics.Add(music);
+
                             Console.WriteLine("Success");
                         }
                         else
@@ -51,6 +82,7 @@ namespace ConsoleApp13
                     {
                         Playlist playlist = new Playlist(nameOfPlaylist);
                         playlists.Add(playlist);
+
                         Console.WriteLine("Success");
                     }
                     else
@@ -130,8 +162,8 @@ namespace ConsoleApp13
                 else if (userInput == 4)
                 {
                     Console.WriteLine("Enter name of music");
-                    string nameOfMusic = Console.ReadLine();
 
+                    string nameOfMusic = Console.ReadLine();
                     Music findedMusic = null;
 
                     if (!string.IsNullOrEmpty (nameOfMusic))
@@ -194,7 +226,6 @@ namespace ConsoleApp13
                             {
                                 int indexOfPlayingMusic = findedPlaylist.Musics.IndexOf(findedMusic);
                                 int indexOfNextMusic = indexOfPlayingMusic + 1;
-
                                 int indexOfLastItemInPlaylist = findedPlaylist.Musics.Count - 1;
 
                                 if (indexOfNextMusic <= indexOfLastItemInPlaylist)
@@ -287,8 +318,8 @@ namespace ConsoleApp13
                     if (playlists.Count > 0)
                     {
                         Console.WriteLine("Enter name of playlist");
-                        string nameOfPlaylist = Console.ReadLine();
 
+                        string nameOfPlaylist = Console.ReadLine();
                         Playlist findedPlaylist = null;
 
                         foreach (Playlist playlist in playlists)
@@ -327,8 +358,8 @@ namespace ConsoleApp13
                     if (playlists.Count > 0)
                     {
                         Console.WriteLine("Enter name of playlist");
-                        string nameOfPlaylist = Console.ReadLine();
 
+                        string nameOfPlaylist = Console.ReadLine();
                         Playlist findedPlaylist = null;
 
                         foreach (Playlist playlist in playlists)
@@ -379,10 +410,9 @@ namespace ConsoleApp13
                     if (musics.Count > 0 && playlists.Count > 0)
                     {
                         Console.WriteLine("Enter name of music");
+
                         string nameOfMusic = Console.ReadLine();
-
                         Music findedMusic = null;
-
                         bool isTherePlayingMusicInPlaylist = false;
                         bool isPlaylistContainsMusic = false;
 
@@ -406,6 +436,7 @@ namespace ConsoleApp13
                                         if (music.IsPlaying == true)
                                         {
                                             isTherePlayingMusicInPlaylist = true;
+
                                             break;
                                         }
                                     }
@@ -452,8 +483,8 @@ namespace ConsoleApp13
                     if (musics.Count > 0)
                     {
                         Console.WriteLine("Enter name of music");
-                        string nameOfMusic = Console.ReadLine();
 
+                        string nameOfMusic = Console.ReadLine();
                         Music findedMusic = null;
 
                         foreach (Music music in musics)
@@ -469,6 +500,7 @@ namespace ConsoleApp13
                             {
                                 findedMusic.Playlist.Musics.Remove(findedMusic);
                             }
+
                             musics.Remove(findedMusic);
 
                             Console.WriteLine("Success");
@@ -484,8 +516,8 @@ namespace ConsoleApp13
                     if (playlists.Count > 0)
                     {
                         Console.WriteLine("Enter name of playlist");
-                        string nameOfPlaylist = Console.ReadLine();
 
+                        string nameOfPlaylist = Console.ReadLine();
                         Playlist findedPlaylist = null;
 
                         foreach (Playlist playlist in playlists)
@@ -498,8 +530,8 @@ namespace ConsoleApp13
                         if (findedPlaylist != null)
                         {
                             Console.WriteLine("Enter name of music");
-                            string nameOfMusic = Console.ReadLine();
 
+                            string nameOfMusic = Console.ReadLine();
                             Music findedMusic = null;
 
                             foreach (Music music in findedPlaylist.Musics)

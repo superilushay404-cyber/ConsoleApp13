@@ -366,12 +366,15 @@ namespace ConsoleApp13
                 }
                 else if (userInput == 9)
                 {
-                    if (musics.Count > 0)
+                    if (musics.Count > 0 && playlists.Count > 0)
                     {
                         Console.WriteLine("Enter name of music");
                         string nameOfMusic = Console.ReadLine();
 
                         Music findedMusic = null;
+
+                        bool isTherePlayingMusicInPlaylist = false;
+                        bool isPlaylistContainsMusic = false;
 
                         foreach (Music music in musics)
                         {
@@ -382,13 +385,56 @@ namespace ConsoleApp13
                         }
                         if (findedMusic != null)
                         {
-                            findedMusic.IsPlaying = true;
-                            Console.WriteLine("Success");
+                            foreach (Playlist playlist in playlists)
+                            {
+                                if (playlist.Musics.Contains(findedMusic))
+                                {
+                                    isPlaylistContainsMusic = true;
+
+                                    foreach (Music music in playlist.Musics)
+                                    {
+                                        if (music.IsPlaying == true)
+                                        {
+                                            isTherePlayingMusicInPlaylist = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (findedMusic.IsPlaying == true)
+                            {
+                                findedMusic.IsPlaying = false;
+                                Console.WriteLine($"\"{nameOfMusic}\" is playing. Instead of setting it on it was set to off");
+                            }
+                            else
+                            {
+                                if (!isTherePlayingMusicInPlaylist && isPlaylistContainsMusic)
+                                {
+                                    findedMusic.IsPlaying = true;
+                                    Console.WriteLine("Success");
+                                }
+                                else if (isPlaylistContainsMusic && isTherePlayingMusicInPlaylist)
+                                {
+                                    Console.WriteLine("In playlist which contains this music is already has playing music");
+                                }
+                                else if (isPlaylistContainsMusic == false)
+                                {
+                                    Console.WriteLine("This music is not added to any playlist (it can play only if it added in playlist)");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\"{nameOfMusic}\" is not exists");
                         }
                     }
-                    else
+                    else if (musics.Count == 0)
                     {
                         Console.WriteLine("There is no music's yet");
+                    }
+                    else if (playlists.Count == 0)
+                    {
+                        Console.WriteLine("There is no playlists yet");
                     }
                 }
                 else if (userInput == 10)
